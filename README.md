@@ -90,15 +90,15 @@ type            |String                                               |"ACTIVATE
 
 Attribute       | Type                                                | Description
 ----------------|-----------------------------------------------------|-----------
-userAddress     |String                                               |Share holder address
-partnerShare    |BigInteger                                           |Share holder share
+userAddress     |String                                               |Shareholder address
+partnerShare    |BigInteger                                           |Shareholder share
 type            |String                                               |"ADDED_SHARE_HOLDER"
 
 ###### Delete share holder event
 
 Attribute       | Type                                                | Description
 ----------------|-----------------------------------------------------|-----------
-userAddress     |String                                               |Share holder address
+userAddress     |String                                               |Shareholder address
 type            |String                                               |"DELETED_SHARE_HOLDER"
 
 ###### Edit share holder event
@@ -258,7 +258,7 @@ if err != nil {
 fmt.Println("Quota:", quota.CurrentCount)
 ```
 
-##### Add Share Holders
+##### Add Shareholders
 ```go
 op := opengo.NewOpenGo(token)
 ctx := context.Background()
@@ -269,7 +269,7 @@ if err != nil {
 fmt.Println("Quota:", quota.CurrentCount)
 ```
 
-##### Update Share Holders
+##### Update Shareholders
 ```go
 op := opengo.NewOpenGo(token)
 ctx := context.Background()
@@ -282,7 +282,7 @@ if err != nil {
 fmt.Println("Updated Share Holder Response:", response)
 ```
 
-##### Delete Share Holders
+##### Delete Shareholders
 ```go
 op := opengo.NewOpenGo(token)
 ctx := context.Background()
