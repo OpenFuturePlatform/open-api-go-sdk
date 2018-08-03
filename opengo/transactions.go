@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"net/http"
 )
 
 type TransactionResponse struct {
@@ -34,19 +33,13 @@ type Transaction struct {
 
 func (op *OpenGo) GetTransactions(ctx context.Context, address string) ([]*Transaction, error) {
 	op.baseURL.Path = fmt.Sprintf("/api/scaffolds/%s/%s", address, "transactions")
-	request, _ := http.NewRequest("GET", op.baseURL.String(), nil)
-	request.Header.Set("Authorization", op.token)
-	request = request.WithContext(ctx)
-
-	response, err := op.httpClient.Do(request)
+	response, err := op.SendRequest(ctx, "GET", nil)
 
 	if err != nil {
 		return nil, fmt.Errorf("The HTTP request failed with error %s\n", err)
-	} else {
-		data, _ := ioutil.ReadAll(response.Body)
-		scaffoldTransactionResponse := &TransactionResponse{}
-		json.Unmarshal(data, scaffoldTransactionResponse)
-		return scaffoldTransactionResponse.Transactions, nil
 	}
-	return nil, err
+	data, _ := ioutil.ReadAll(response.Body)
+	scaffoldTransactionResponse := &TransactionResponse{}
+	json.Unmarshal(data, scaffoldTransactionResponse)
+	return scaffoldTransactionResponse.Transactions, nil
 }
