@@ -7,9 +7,9 @@ import (
 	"io/ioutil"
 )
 
-type TransactionResponse struct {
-	TotalCount   int            `json:"totalCount"`
-	Transactions []*Transaction `json:"list"`
+type EthereumTransactionResponse struct {
+	TotalCount   int                    `json:"totalCount"`
+	Transactions []*EthereumTransaction `json:"list"`
 }
 
 type Event struct {
@@ -25,21 +25,21 @@ type Event struct {
 	Properties               map[string]string `json:"properties"`
 }
 
-type Transaction struct {
-	Scaffold Scaffold `json:"scaffold"`
-	Event    Event    `json:"event"`
-	Type     string   `json:"type"`
+type EthereumTransaction struct {
+	Scaffold EthereumScaffold `json:"scaffold"`
+	Event    Event            `json:"event"`
+	Type     string           `json:"type"`
 }
 
-func (op *OpenGo) GetTransactions(ctx context.Context, address string) ([]*Transaction, error) {
-	op.baseURL.Path = fmt.Sprintf("/api/scaffolds/%s/%s", address, "transactions")
+func (op *OpenGo) GetEthereumTransactions(ctx context.Context, address string) ([]*EthereumTransaction, error) {
+	op.baseURL.Path = fmt.Sprintf("/api/ethereum-scaffolds/%s/%s", address, "transactions")
 	response, err := op.SendRequest(ctx, "GET", nil)
 
 	if err != nil {
 		return nil, fmt.Errorf("The HTTP request failed with error %s\n", err)
 	}
 	data, _ := ioutil.ReadAll(response.Body)
-	scaffoldTransactionResponse := &TransactionResponse{}
+	scaffoldTransactionResponse := &EthereumTransactionResponse{}
 	json.Unmarshal(data, scaffoldTransactionResponse)
 	return scaffoldTransactionResponse.Transactions, nil
 }

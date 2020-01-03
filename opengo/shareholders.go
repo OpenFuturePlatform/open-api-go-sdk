@@ -21,7 +21,7 @@ func NewShareHolder(address string, percent int) *ShareHolder {
 }
 
 func (op *OpenGo) AddShareHolder(ctx context.Context, scaffoldAddress string, holder ShareHolder) (string, error) {
-	op.baseURL.Path = fmt.Sprintf("/api/scaffolds/%s/%s", scaffoldAddress, "holders")
+	op.baseURL.Path = fmt.Sprintf("/api/ethereum-scaffolds/%s/%s", scaffoldAddress, "holders")
 	holderJSON, _ := json.Marshal(holder)
 	response, err := op.SendRequest(ctx, "POST", holderJSON)
 
@@ -33,7 +33,7 @@ func (op *OpenGo) AddShareHolder(ctx context.Context, scaffoldAddress string, ho
 }
 
 func (op *OpenGo) DeleteShareHolder(ctx context.Context, scaffoldAddress string, holderAddress string) (string, error) {
-	op.baseURL.Path = fmt.Sprintf("/api/scaffolds/%s/%s/%s", scaffoldAddress, "holders", holderAddress)
+	op.baseURL.Path = fmt.Sprintf("/api/ethereum-scaffolds/%s/%s/%s", scaffoldAddress, "holders", holderAddress)
 	response, err := op.SendRequest(ctx, "DELETE", nil)
 
 	if err != nil {
@@ -44,7 +44,7 @@ func (op *OpenGo) DeleteShareHolder(ctx context.Context, scaffoldAddress string,
 }
 
 func (op *OpenGo) UpdateShareHolder(ctx context.Context, scaffoldAddress string, holder ShareHolder) (string, error) {
-	op.baseURL.Path = fmt.Sprintf("/api/scaffolds/%s/%s/%s", scaffoldAddress, "holders", holder.Address)
+	op.baseURL.Path = fmt.Sprintf("/api/ethereum-scaffolds/%s/%s/%s", scaffoldAddress, "holders", holder.Address)
 	holder.Address = ""
 	holderJSON, _ := json.Marshal(holder)
 	response, err := op.SendRequest(ctx, "PUT", holderJSON)

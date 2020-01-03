@@ -12,8 +12,8 @@ type WebHook struct {
 	WebHook url.URL `json:"webHook"`
 }
 
-func (op *OpenGo) SetWebHook(ctx context.Context, scaffoldAddress string, hook WebHook) (string, error) {
-	op.baseURL.Path = fmt.Sprintf("/api/scaffolds/%s", scaffoldAddress)
+func (op *OpenGo) SetEthereumScaffoldWebHook(ctx context.Context, scaffoldAddress string, hook WebHook) (string, error) {
+	op.baseURL.Path = fmt.Sprintf("/api/ethereum-scaffolds/%s", scaffoldAddress)
 	webHookJSON, _ := json.Marshal(hook)
 	response, err := op.SendRequest(ctx, "POST", webHookJSON)
 
